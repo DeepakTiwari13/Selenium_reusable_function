@@ -429,4 +429,32 @@ public class Keywords {
 		}
 		return false;
 	}
+	public boolean Getdatafromcolumn(String Startxpath, String Endxpath,
+			String Lookupxpath, String name) {
+
+		adl_log.info("Inside Getdatafromcolumn function with "+name);
+		try {
+			String xpath1 = OR.getProperty(Startxpath);
+			String xpath2 = OR.getProperty(Endxpath);
+			String xpath3 = OR.getProperty(Lookupxpath);
+			
+			//WebDriverWait wait = new WebDriverWait(driver, 100);
+			
+			for (int i = 1; i < 50; i++) { // This needs to be set dynamic
+			//WebElement element1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty(xpath1+i+xpath2))));
+				if (driver.findElement(By.xpath(xpath1+i+xpath2)).getText().equals(name)) {
+					//WebElement element2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty(xpath1+i+xpath3))));
+					//element2.click();
+					driver.findElement(By.xpath(xpath1+i+xpath3)).click();
+					Thread.sleep(2000l);
+					return true;
+				}
+			}
+		} catch (Throwable t) {
+			adl_log.error("Failed to Getdatafromcolumn "+name+ t.fillInStackTrace());
+
+		}
+		return false;
+
+	}
 }
